@@ -5,4 +5,4 @@
 
 <hr />
 <hr />
-<a src = "https:www.likui.co">关于我</a>
+- <a href="https://www.likui.co/" target="_blank">关于我</a>
