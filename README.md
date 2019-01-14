@@ -17,7 +17,9 @@
 
 ​	HTML编辑器工具有很多，推荐如下
 
-* [Notepad](https://notepad-plus-plus.org/)    下载地址—>[Notepad](https://notepad-plus-plus.org/download/v7.6.2.html)
+
+
+* [Notepad](https://notepad-plus-plus.org/)    下载地址—>[<a href="https://notepad-plus-plus.org/download/v7.6.2.html" target="_blank">Notepad</a>](https://notepad-plus-plus.org/download/v7.6.2.html)
 * [Dreamweaver CS6](https://www.adobe.com/cn/products/cs6/dreamweaver.html)
 * [Subline Text](https://www.sublimetext.com/)
 * [EditPlus](https://www.editplus.com/)   下载地址 —>[EditPlus](https://www.editplus.com/download.html)
@@ -177,6 +179,6 @@
 
 - <a href="https://www.likui.co/" target="_blank">关于我</a>
 
-- 学习来源：[W3CSchool](http://www.w3school.com.cn/html/index.asp)
+-  <a href="http://www.w3school.com.cn/html/index.asp/" target="_blank">W3CSchool</a>
 
   
