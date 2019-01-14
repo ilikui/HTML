@@ -15,6 +15,13 @@
 
 ### HTML编辑器
 
+​	HTML编辑器工具有很多，推荐如下
+
+* [Notepad](https://notepad-plus-plus.org/)    下载地址—>[Notepad](https://notepad-plus-plus.org/download/v7.6.2.html)
+* [Dreamweaver CS6](https://www.adobe.com/cn/products/cs6/dreamweaver.html)
+* [Subline Text](https://www.sublimetext.com/)
+* [EditPlus](https://www.editplus.com/)   下载地址 —>[EditPlus](https://www.editplus.com/download.html)
+
 ### HTML基础
 
 ### HTML元素
