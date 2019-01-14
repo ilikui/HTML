@@ -55,18 +55,38 @@
    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
    <html>
-   <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-   <title>这个是段落标签</title>
-   </head>
+       <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+       <title>这个是段落标签</title>
+       </head>
    
-   <body>
-   	<p>这是一个段落！</p>
-   </body>
+       <body>
+           <p>这是一个段落！</p>
+       </body>
    </html>
    ```
 
 3. HTML链接
+
+   * 演示地址——>[a标签]((https://www.likui.co/HTML/HTML/FisrtSegment/link.html)
+
+   ```html
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+   <html>
+       <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+       <title>链接标签</title>
+       </head>
+   
+       <body>
+        <a href="http://www.yueya.info">月牙博客</a>
+       </body>
+   </html>
+   
+   ```
+
+   
 
    
 
