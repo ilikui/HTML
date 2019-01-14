@@ -68,7 +68,7 @@
 
 3. HTML链接
 
-   * 演示地址——>[a标签]((https://www.likui.co/HTML/HTML/FisrtSegment/link.html)
+   * 演示地址——>[a标签](https://www.likui.co/HTML/HTML/FisrtSegment/link.html)
 
    ```html
    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
