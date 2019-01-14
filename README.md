@@ -24,6 +24,27 @@
 
 ### HTML基础
 
+1. HTML标题
+
+   ```html
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+   <html>
+       <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+       <title>这个HTML标题</title>
+       </head>
+       <body>
+       </body>
+   </html>
+   ```
+
+2. HTML段落
+
+3. HTML链接
+
+4. HTNL图像
+
 ### HTML元素
 
 ### HTML属性
