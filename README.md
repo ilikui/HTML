@@ -26,7 +26,7 @@
 
 1. HTML标题
 
-   * 演示地址—–>演示地址—–>[HTML标题](https://www.likui.co/HTML/HTML/FisrtSegment/index.html)
+   * 演示地址—–>[HTML标题](https://www.likui.co/HTML/HTML/FisrtSegment/index.html)
 
    ```html
    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
