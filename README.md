@@ -122,10 +122,10 @@
 
 `HTML元素指的是从开始标签（start tag）到结束标签(end tag)的所有代码`
 
-| 开始标签                         | 元素内容            | 结束标签 |
-| -------------------------------- | ------------------- | -------- |
-| <p>                              | This is a paragraph | </p>     |
-| <a href="https://www.baidu.com"> | This is a link      | <a/>     |
+| 开始标签                           | 元素内容            | 结束标签 |
+| ---------------------------------- | ------------------- | -------- |
+| `<p>`                              | This is a paragraph | `</p>`   |
+| `<a href="https://www.baidu.com">` | This is a link      | `<a/>`   |
 
 #### HTML元素语法
 
