@@ -15,7 +15,7 @@
 
 ### HTML编辑器
 
-
+HTML编辑器工具有很多，推荐如下
 
 * [Notepad](https://notepad-plus-plus.org/)    下载地址—>[<a href="https://notepad-plus-plus.org/download/v7.6.2.html" target="_blank">Notepad</a>](https://notepad-plus-plus.org/download/v7.6.2.html)
 
@@ -25,7 +25,7 @@
 
 * <a href="https://www.editplus.com/" target="_blank">EditPlus</a> 下载地址 —><a href="https://www.editplus.com/download.html" target="_blank">EditPlus</a>
 
-  ​	HTML编辑器工具有很多，推荐如下
+  ​	
 
 ### HTML基础
 
