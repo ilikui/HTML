@@ -15,11 +15,13 @@
 
 ### HTML编辑器
 
+
+
 ​	HTML编辑器工具有很多，推荐如下
 
 * [Notepad](https://notepad-plus-plus.org/)    下载地址—>[<a href="https://notepad-plus-plus.org/download/v7.6.2.html" target="_blank">Notepad</a>](https://notepad-plus-plus.org/download/v7.6.2.html)
 * <a href="https://www.adobe.com/cn/products/cs6/dreamweaver.htm" target="_blank">Dreamweaver CS6</a>
-* [Subline Text](https://www.sublimetext.com/)
+* <a href="https://www.sublimetext.com/" target="_blank">Subline Text</a>
 * [EditPlus](https://www.editplus.com/)   下载地址 —>[EditPlus](https://www.editplus.com/download.html)
 
 ### HTML基础
@@ -89,6 +91,10 @@
    
 
 4. HTML图像
+
+   * 演示地址—–><a href="https://www.likui.co/HTML/HTML/FisrtSegment/image.html" target="_blank">Img标签</a>
+
+   
 
 
 ### HTML元素
