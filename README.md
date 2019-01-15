@@ -1,4 +1,4 @@
-# HTML基础教程
+# Web基础教程
 
 ---
 
@@ -17,12 +17,15 @@
 
 
 
-​	HTML编辑器工具有很多，推荐如下
-
 * [Notepad](https://notepad-plus-plus.org/)    下载地址—>[<a href="https://notepad-plus-plus.org/download/v7.6.2.html" target="_blank">Notepad</a>](https://notepad-plus-plus.org/download/v7.6.2.html)
+
 * <a href="https://www.adobe.com/cn/products/cs6/dreamweaver.html" target="_blank">Dreamweaver CS6</a>
+
 * <a href="https://www.sublimetext.com/" target="_blank">Subline Text</a>
-* [EditPlus](https://www.editplus.com/)   下载地址 —>[EditPlus](https://www.editplus.com/download.html)
+
+* [EditPlus](https://www.editplus.com/)   下载地址 —><a href="https://www.editplus.com/download.html" target="_blank">EditPlus</a>
+
+  ​	HTML编辑器工具有很多，推荐如下
 
 ### HTML基础
 
@@ -175,6 +178,12 @@
 ### HTML 颜色名
 
 ###  HTML文档类型
+
+
+
+# css教程
+
+#  JavaScript教程
 
 
 
