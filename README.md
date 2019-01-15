@@ -94,6 +94,21 @@
 
    * 演示地址—–><a href="https://www.likui.co/HTML/HTML/FisrtSegment/image.html" target="_blank">Img标签</a>
 
+   ```html
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+   <html>
+   	<head>
+   	<base href="https://www.likui.co/HTML/Images/" />
+   	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+   	<title>鍥剧墖灞炴€?/title>
+   	</head>
+   	<body>
+   	<img src="FirstSegment/html.jpg"/>
+   	</body>
+   </html>
+   ```
+
    
 
 
