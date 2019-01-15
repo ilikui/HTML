@@ -105,7 +105,7 @@
    	<head>
    	<base href="https://www.likui.co/HTML/Images/" />
    	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-   	<title>图片属性/title>
+   	<title>图片属性</title>
    	</head>
    	<body>
    	<img src="FirstSegment/html.jpg"/>
