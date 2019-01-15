@@ -23,7 +23,7 @@
 
 * <a href="https://www.sublimetext.com/" target="_blank">Subline Text</a>
 
-* [EditPlus](https://www.editplus.com/)   下载地址 —><a href="https://www.editplus.com/download.html" target="_blank">EditPlus</a>
+* <a href="https://www.editplus.com/" target="_blank">EditPlus</a> 下载地址 —><a href="https://www.editplus.com/download.html" target="_blank">EditPlus</a>
 
   ​	HTML编辑器工具有很多，推荐如下
 
