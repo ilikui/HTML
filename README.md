@@ -2,7 +2,7 @@
 
 ---
 
-
+ <link rel="shortcut icon" href="https://www.likui.co/HTML/Images/favicon.ico" />
 
 ### HTML 简介
 
