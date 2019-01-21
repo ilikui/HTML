@@ -177,6 +177,18 @@ HTML编辑器工具有很多，推荐如下
 
 ### HTML属性
 
+#### HTML属性
+
+> HTML=标签可以拥有**属性**。属性提供了有关HTML元素的更多信息。属性总是在HTML元素的**开标签中**规定。
+
+#### HTML实例
+
+```html
+<a href="http://www.yueya.info">This is a link</a>
+```
+
+
+
 ### HTML标题
 
 ### HTML段落
