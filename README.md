@@ -102,16 +102,6 @@ HTML编辑器工具有很多，推荐如下
 
    * `img`标签属性
 
-     1.`align`
-
-     | <a href="https://www.likui.co/HTML/HTML/FisrtSegment/imag.html" target="_blank" >`absbottom`</a> | <a href="https://www.likui.co/HTML/HTML/FisrtSegment/absmiddle.html" target="_blank" >`absmiddle`</a> |      |      |
-     | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- | ---- |
-     |                                                              |                                                              |      |      |
-
-     
-
-     
-
    * 源文件
 
    ```html
