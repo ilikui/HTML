@@ -55,7 +55,7 @@ HTML编辑器工具有很多，推荐如下
 
 2. HTML段落
 
-   * 演示地址——>[P标签](https://www.likui.co/HTML/HTML/CH1/passage.html)
+   * 演示地址——><a href="https://www.likui.co/HTML/HTML/CH1/passage.html"></a>
    * 源文件
 
    ```html
@@ -75,7 +75,7 @@ HTML编辑器工具有很多，推荐如下
 
 3. HTML链接
 
-   * 演示地址——>[a标签](https://www.likui.co/HTML/HTML/FisrtSegment/link.html)
+   * 演示地址——>[a标签](https://www.likui.co/HTML/HTML/CH1/link.html)
    * 源文件
 
    ```html
