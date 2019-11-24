@@ -31,7 +31,7 @@ HTML编辑器工具有很多，推荐如下
 
 1. HTML标题
 
-   * 演示地址—–><a href="https://www.likui.co/HTML/HTML/FisrtSegment/title.html" target="_blank">HTML标题</a>
+   * 演示地址—–><a href="https://www.likui.co/HTML/HTML/CH1/title.html" target="_blank">HTML标题</a>
    * 源文件
 
    ```html
