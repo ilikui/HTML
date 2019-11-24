@@ -75,7 +75,7 @@ HTML编辑器工具有很多，推荐如下
 
 3. HTML链接
 
-   * 演示地址——>[a标签](https://www.likui.co/HTML/HTML/CH1/link.html)
+   * 演示地址——><a href="https://www.likui.co/HTML/HTML/CH1/link.html" target="_blank">链接标签</a>
    * 源文件
 
    ```html
