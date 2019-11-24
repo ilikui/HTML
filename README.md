@@ -55,7 +55,7 @@ HTML编辑器工具有很多，推荐如下
 
 2. HTML段落
 
-   * 演示地址——>[P标签](https://www.likui.co/HTML/HTML/FisrtSegment/passage.html)
+   * 演示地址——>[P标签](https://www.likui.co/HTML/HTML/CH1/passage.html)
    * 源文件
 
    ```html
