@@ -267,6 +267,7 @@ HTML编辑器工具有很多，推荐如下
     <title>段落标签的使用</title>
 </head>
 <body>
+    <!--换行-->
     <p>这是一个<br>段落</p>
 </body>
 </html>
