@@ -223,9 +223,34 @@ HTML编辑器工具有很多，推荐如下
 <a href="http://www.yueya.info">This is a link</a>
 ```
 
-
+> HTML 标题（Heading）是通过<h1> - <h6> 标签来定义的。
 
 ### HTML标题
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML标题</title>
+</head>
+<body>
+
+    <h1>一级标题</h1>
+    <h2>二级标题</h2>
+    <h3>三级标题</h3>
+    <h4>四级标题</h4>
+    <h5>五级标题</h5>
+    <h6>六级标题</h6>
+    
+</body>
+</html>
+
+```
+
+
 
 ### HTML段落
 
