@@ -255,6 +255,23 @@ HTML编辑器工具有很多，推荐如下
 
 ### HTML段落
 
+> 段落标签的使用
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段落标签的使用</title>
+</head>
+<body>
+    <p>这是一个<br>段落</p>
+</body>
+</html>
+```
+
 ### HTML格式
 
 ### HTML格式化
