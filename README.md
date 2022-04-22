@@ -223,9 +223,10 @@ HTML编辑器工具有很多，推荐如下
 <a href="http://www.yueya.info">This is a link</a>
 ```
 
-> HTML 标题（Heading）是通过<h1> - <h6> 标签来定义的。
-
 ### HTML标题
+
+
+> HTML 标题（Heading）是通过<h1> - <h6> 标签来定义的。
 
 ```html
 <!DOCTYPE html>
