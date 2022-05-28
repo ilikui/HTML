@@ -94,6 +94,19 @@
 
 ## 10.设置边框的第一种方式
 
+```html
+    <style>
+
+            div{
+
+               width:300px;
+               height:300px;
+               border:1px solid red;
+
+            }
+    </style>
+```
+
 ## 11.设置边框的第二种方式
 
 ## 12.设置边框的第二种方式
