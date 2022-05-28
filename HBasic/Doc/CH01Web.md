@@ -83,6 +83,10 @@
 ## 7.CSS出现的位置-行间
 
 
+```html
+  <div style="width:100px; height:100px;background: red;""></div>
+```
+
 ## 8.CSS出现的位置-内部
 
 ## 9.CSS出现的位置-外部
