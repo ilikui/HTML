@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<script>
+text="<bookstore><book>";
+text=text+"<title>Everyday Italian</title>";
+text=text+"<author>Giada De Laurentiis</author>";
+text=text+"<year>2005</year>";
+text=text+"</book></bookstore>";
+
+fieName = "CentralDoorLock.arxml";
+if (window.DOMParser)
+{
+  parser=new DOMParser();
+  xmlDoc=loadXMLDoc(fieName);
+  //xmlDoc=parser.parseFromString(text,"text/xml");
+
+  x=xmlDoc.getElementsByTagName("ELEMENTS");
+ 
+for (i=0;i<x.length;i++)
+{
+  document.write(x[i].childNodes[0].nodeValue);
+  document.write("");
+}
+}
+else
+{
+   // Internet Explorer
+  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+  xmlDoc.async=false;
+  xmlDoc.loadXML(text); 
+  
+} 
+document.write("XML 字符串载入到 XML DOM 对象");
+</script>
+</body>
+</html>
