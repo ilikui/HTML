@@ -2,17 +2,11 @@ title: HTML
 description: Modernist is a theme for GitHub Pages.
 show_downloads: true
 google_analytics:
-#theme: jekyll-theme-modernist
-theme: jekyll-theme-kunka
+theme: jekyll-theme-modernist
 
 
 
-navbar-links:
-  About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
-  Author's home: "https://deanattali.com"
+
   
   
   
