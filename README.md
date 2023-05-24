@@ -40,6 +40,16 @@ CNAME记录（允许一个域名是另一个域名的别名）。
 
 
 
+```mermaid
+graph LR
+    A --- B
+    B-->C[fa:fa-ban forbidden]
+    B-->D(fa:fa-spinner);
+
+
+```
+
+
 
 <html lang="en">
   <body>
