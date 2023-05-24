@@ -40,7 +40,7 @@ CNAME记录（允许一个域名是另一个域名的别名）。
 
 
 
-<!DOCTYPE html>
+
 <html lang="en">
   <body>
     <pre class="mermaid">
