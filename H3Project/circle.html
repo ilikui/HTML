@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转动画</title>
+    <style>
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 4s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle"></div>
+    <script>
+        window.onload = function () {
+            var circle = document.querySelector('.circle');
+            var angle = 0;
+            setInterval(function () {
+                angle += 1;
+                circle.style.transform = 'rotate(' + angle + 'deg)';
+            }, 50);
+        };
+    </script>
+</body>
+
+</html>
