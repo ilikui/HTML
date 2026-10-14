@@ -30,6 +30,9 @@
 - [JavaScript 专题：变量、数据类型与类型转换](JavaScript/01-变量、数据类型与类型转换.md)
 - [JavaScript 专题：运算符与流程控制](JavaScript/02-运算符与流程控制.md)
 - [JavaScript 专题：函数、作用域与闭包](JavaScript/03-函数、作用域与闭包.md)
+- [JavaScript 专题：数组与对象](JavaScript/04-数组与对象.md)
+- [JavaScript 专题：字符串、数字与日期处理](JavaScript/05-字符串、数字与日期处理.md)
+- [JavaScript 专题：DOM 查询与页面更新](JavaScript/06-DOM查询与页面更新.md)
 - [Git 与版本控制](#5-git-与版本控制)
 - [浏览器、调试与 Web 工程](#6-浏览器调试与-web-工程)
 - [综合项目与验收](#7-综合项目与验收)
@@ -358,6 +361,9 @@ flowchart TD
 - [01｜变量、数据类型与类型转换](JavaScript/01-变量、数据类型与类型转换.md)
 - [02｜运算符与流程控制](JavaScript/02-运算符与流程控制.md)
 - [03｜函数、作用域与闭包](JavaScript/03-函数、作用域与闭包.md)
+- [04｜数组与对象](JavaScript/04-数组与对象.md)
+- [05｜字符串、数字与日期处理](JavaScript/05-字符串、数字与日期处理.md)
+- [06｜DOM 查询与页面更新](JavaScript/06-DOM查询与页面更新.md)
 
 ### 4.2 从事件开始
 
