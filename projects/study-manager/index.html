@@ -64,6 +64,21 @@
       </div>
     </section>
 
+<section class="panel goals-panel" aria-labelledby="goals-title">
+      <div class="section-head"><h2 id="goals-title">学习目标与连续打卡</h2><span class="tag">每周目标</span></div>
+      <div class="goals-grid">
+        <section class="goal-card"><h3>本周学习目标</h3><p class="chart-hint">按最近 7 天累计学习时长计算。</p>
+          <form id="goal-form" class="goal-form"><label for="weekly-goal">目标分钟数</label><div class="goal-input-row"><input id="weekly-goal" type="number" min="1" max="10080" step="1" value="300" required><button class="btn primary" type="submit">保存目标</button></div></form>
+          <div class="goal-progress-meta"><strong id="goal-progress-label">0 / 300 分钟</strong><span id="goal-progress-percent">0%</span></div><div class="goal-progress-track" id="goal-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="goal-progress-bar" class="goal-progress-bar"></div></div><p id="goal-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+        <section class="goal-card"><h3>学习连续性</h3><div class="streak-stats"><div><strong id="current-streak">0</strong><span>当前连续天数</span></div><div><strong id="longest-streak">0</strong><span>历史最长天数</span></div></div><p class="chart-hint">每天至少有一条学习记录，即计为完成当天学习。</p></section>
+      </div>
+    </section>
+    <section class="panel topic-export-panel" aria-labelledby="topic-export-title">
+      <div class="section-head"><h2 id="topic-export-title">专题复盘与导出</h2><span class="tag">Markdown</span></div><p class="chart-hint">导出所选专题的学习记录、复盘内容和时间统计，方便沉淀到 Notion 或个人知识库。</p>
+      <div class="topic-export-controls"><label for="topic-export-select">选择专题</label><select id="topic-export-select"><option value="">请选择专题</option></select><button class="btn primary" id="export-topic-btn" type="button">导出专题 Markdown</button></div><p id="topic-export-status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
     <main class="workspace">
       <section class="panel" id="editor-panel" aria-labelledby="editor-title">
         <div class="section-head">
