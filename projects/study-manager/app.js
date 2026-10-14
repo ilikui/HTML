@@ -3,6 +3,7 @@
 
       const STORAGE_KEY = "ilikui-study-manager-v1";
       const THEME_KEY = "ilikui-study-manager-theme";
+      const GOAL_KEY = "ilikui-study-manager-weekly-goal-v1";
       const $ = (selector) => document.querySelector(selector);
       const form = $("#record-form");
       const titleInput = $("#title");
@@ -19,6 +20,7 @@
       let editingId = null;
       let storageAvailable = true;
       let records = loadRecords();
+      let weeklyGoal = loadWeeklyGoal();
 
       function todayLocal() {
         const now = new Date();
@@ -45,6 +47,15 @@
           storageAvailable = false;
           console.error("读取本地记录失败：", error);
           return [];
+        }
+      }
+
+      function loadWeeklyGoal() {
+        try {
+          const saved = Number(localStorage.getItem(GOAL_KEY));
+          return Number.isInteger(saved) && saved >= 1 && saved <= 10080 ? saved : 300;
+        } catch {
+          return 300;
         }
       }
 
@@ -193,6 +204,101 @@
         categoryChart.append(categoryFragment);
       }
 
+      function renderGoalAndStreak() {
+        const today = new Date();
+        const todayNumber = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000);
+        const dayNumbers = [...new Set(records.map((item) => {
+          if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date)) return null;
+          const timestamp = Date.parse(item.date + "T00:00:00Z");
+          return Number.isFinite(timestamp) ? Math.floor(timestamp / 86400000) : null;
+        }).filter((value) => value !== null))].sort((a, b) => a - b);
+        let longest = 0;
+        let run = 0;
+        let previous = null;
+        for (const day of dayNumbers) {
+          run = previous !== null && day === previous + 1 ? run + 1 : 1;
+          longest = Math.max(longest, run);
+          previous = day;
+        }
+        let current = 0;
+        if (dayNumbers.length) {
+          const latest = dayNumbers[dayNumbers.length - 1];
+          if (latest === todayNumber || latest === todayNumber - 1) {
+            current = 1;
+            for (let i = dayNumbers.length - 1; i > 0; i -= 1) {
+              if (dayNumbers[i] - dayNumbers[i - 1] !== 1) break;
+              current += 1;
+            }
+          }
+        }
+        $("#current-streak").textContent = String(current);
+        $("#longest-streak").textContent = String(longest);
+
+        const cutoff = localDateKey(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6));
+        const todayKey = localDateKey(today);
+        const weekMinutes = records.filter((item) => item.date >= cutoff && item.date <= todayKey)
+          .reduce((sum, item) => sum + item.minutes, 0);
+        const percent = Math.floor(weekMinutes / weeklyGoal * 100);
+        $("#weekly-goal").value = String(weeklyGoal);
+        $("#goal-progress-label").textContent = weekMinutes.toLocaleString("zh-CN") + " / " + weeklyGoal.toLocaleString("zh-CN") + " 分钟";
+        $("#goal-progress-percent").textContent = percent + "%";
+        $("#goal-progress-bar").style.width = Math.min(100, percent) + "%";
+        $("#goal-progress").setAttribute("aria-valuenow", String(Math.min(100, percent)));
+        $("#goal-progress").setAttribute("aria-valuetext", weekMinutes + " 分钟，共 " + weeklyGoal + " 分钟目标");
+        if (percent >= 100) setStatus($("#goal-status"), "目标达成！保持节奏，也记得给自己留点休息时间。", "success");
+        else setStatus($("#goal-status"), "还差 " + Math.max(0, weeklyGoal - weekMinutes) + " 分钟达到本周目标。");
+      }
+
+      function renderTopicExportOptions() {
+        const select = $("#topic-export-select");
+        const previous = select.value;
+        select.replaceChildren(new Option("请选择专题", ""));
+        for (const category of uniqueCategories()) select.add(new Option(category, category));
+        if ([...select.options].some((option) => option.value === previous)) select.value = previous;
+      }
+
+      function exportTopicMarkdown() {
+        const category = $("#topic-export-select").value;
+        if (!category) {
+          setStatus($("#topic-export-status"), "请先选择一个专题。", "error");
+          return;
+        }
+        const topicRecords = records.filter((item) => (item.category.trim() || "未分类") === category)
+          .sort((a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt));
+        if (!topicRecords.length) {
+          setStatus($("#topic-export-status"), "这个专题目前没有可导出的记录。", "error");
+          return;
+        }
+        const totalMinutes = topicRecords.reduce((sum, item) => sum + item.minutes, 0);
+        const lines = [
+          "# " + category + "｜学习专题复盘",
+          "",
+          "- 导出日期：" + todayLocal(),
+          "- 记录数量：" + topicRecords.length,
+          "- 累计学习：" + totalMinutes + " 分钟",
+          "",
+          "## 学习记录",
+          ""
+        ];
+        for (const item of topicRecords) {
+          lines.push("### " + item.date + "｜" + item.title, "", "- 学习时长：" + item.minutes + " 分钟", "");
+          if (item.notes.trim()) lines.push(item.notes.trim(), "");
+          else lines.push("（尚未填写复盘内容）", "");
+          lines.push("---", "");
+        }
+        lines.push("## 后续思考", "", "- 这个专题最重要的三个结论是什么？", "- 哪些问题还没有解决？", "- 下一步要验证或实践什么？", "");
+        const blob = new Blob(["\\uFEFF", lines.join("\\n")], { type: "text/markdown;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = category.replace(/[\\\\/:*?"<>|]/g, "-") + "-专题复盘-" + todayLocal() + ".md";
+        document.body.append(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+        setStatus($("#topic-export-status"), "已导出「" + category + "」专题，共 " + topicRecords.length + " 条记录。", "success");
+      }
+
       function render() {
         renderCategoryFilter();
         const visible = getVisibleRecords();
@@ -202,6 +308,8 @@
         $("#topic-count").textContent = uniqueCategories().length.toLocaleString("zh-CN");
         $("#minutes-count").textContent = records.reduce((sum, item) => sum + item.minutes, 0).toLocaleString("zh-CN");
         renderAnalytics();
+        renderGoalAndStreak();
+        renderTopicExportOptions();
 
         if (visible.length === 0) {
           const empty = document.createElement("div");
@@ -353,6 +461,24 @@
       [searchInput, categoryFilter, sortInput].forEach((control) => {
         control.addEventListener(control === searchInput ? "input" : "change", render);
       });
+
+      $("#goal-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const value = Number($("#weekly-goal").value);
+        if (!Number.isInteger(value) || value < 1 || value > 10080) {
+          setStatus($("#goal-status"), "每周目标请输入 1 到 10080 之间的整数分钟。", "error");
+          return;
+        }
+        try {
+          localStorage.setItem(GOAL_KEY, String(value));
+          weeklyGoal = value;
+          renderGoalAndStreak();
+          setStatus($("#goal-status"), "每周目标已保存。");
+        } catch (error) {
+          setStatus($("#goal-status"), "目标无法保存：浏览器本地存储不可用。", "error");
+        }
+      });
+      $("#export-topic-btn").addEventListener("click", exportTopicMarkdown);
 
       $("#focus-add").addEventListener("click", () => {
         resetForm();
