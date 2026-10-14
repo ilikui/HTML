@@ -26,14 +26,14 @@ assert.equal(ids.length, new Set(ids).size, "HTML IDs must be unique");
 for (const id of [
   "record-form", "record-list", "weekly-chart", "category-chart",
   "goal-form", "weekly-goal", "current-streak", "longest-streak",
-  "topic-export-select", "export-topic-btn"
+  "topic-export-select", "export-topic-btn", "import-preview", "import-new-count", "import-update-count", "import-invalid-count", "confirm-merge-import", "confirm-replace-import"
 ]) {
   assert.ok(ids.includes(id), `Expected interface element #${id}`);
 }
 
 for (const feature of [
   "function renderAnalytics()", "function renderGoalAndStreak()",
-  "function renderTopicExportOptions()", "function exportTopicMarkdown()", "function normalizeRecord()", "parsed.filter(validRecord).map(normalizeRecord)",
+  "function renderTopicExportOptions()", "function exportTopicMarkdown()", "function normalizeRecord()", "parsed.filter(validRecord).map(normalizeRecord)", "function showImportPreview(imported)", "function commitImport(mode)",
   'localStorage.setItem(GOAL_KEY'
 ]) {
   assert.ok(js.includes(feature), `Expected application feature: ${feature}`);
@@ -43,4 +43,4 @@ assert.equal((css.match(/\{/g) || []).length, (css.match(/\}/g) || []).length,
   "CSS opening and closing brace counts must match");
 assert.match(css, /@media\s*\(max-width:\s*780px\)/, "Responsive layout rules should exist");
 
-console.log("Study Manager static checks passed.");
+assert.match(js, /window\\.confirm\\("确定替换全部现有记录吗/, "Replacing records must require explicit confirmation");\nassert.match(js, /pendingImport = valid/, "Import should wait for explicit confirmation before saving");\n\nconsole.log("Study Manager static checks passed.");
