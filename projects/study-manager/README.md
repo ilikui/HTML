@@ -1,13 +1,26 @@
 # 学习台｜个人学习记录与知识专题管理器
 
-一个不依赖框架、构建工具或第三方库的原生前端项目，用来串联 HTML 表单、CSS 响应式布局、DOM、事件委托、数据校验、LocalStorage 和 JSON 导入导出。
+一个不依赖框架、构建工具或第三方库的原生前端项目，用来串联 HTML 表单、CSS 响应式布局、DOM、事件处理、数据校验、LocalStorage 和 JSON 导入导出。HTML、样式和应用逻辑已拆分为独立文件，方便维护。
 
 ## 运行方式
 
-1. 打开本目录的 `index.html`，或使用任意静态 HTTP 服务器提供此目录。
-2. 新建几条学习记录，刷新页面确认已保存的数据能够恢复。
-3. 使用“导出 JSON”备份；需要恢复时点击“导入 JSON”。
-4. 建议使用本地开发服务器运行，以获得更一致的浏览器存储行为。
+1. 确保 `index.html`、`styles.css` 和 `app.js` 保持在同一目录。
+2. 使用任意静态 HTTP 服务器提供此目录（推荐），例如在本目录执行 `python -m http.server 8000`，再访问 `http://localhost:8000`。
+3. 新建几条学习记录，刷新页面确认已保存的数据能够恢复。
+4. 使用“导出 JSON”备份；需要恢复时点击“导入 JSON`。
+5. 执行 `tests/manual-test-plan.md` 中的手动回归清单。
+
+## 文件结构
+
+```text
+study-manager/
+├── index.html                 # 页面结构与表单
+├── styles.css                 # 主题、布局与响应式样式
+├── app.js                     # 状态、校验、渲染、存储和导入导出
+├── README.md                  # 项目说明
+└── tests/
+    └── manual-test-plan.md    # 手动回归测试清单
+```
 
 ## 功能清单
 
@@ -26,7 +39,7 @@
 
 ```mermaid
 flowchart TD
-    A[表单输入] --> B[校验与规范化]
+    A[HTML 表单] --> B[app.js 校验与规范化]
     B --> C[更新记录状态]
     C --> D[写入 LocalStorage]
     D --> E[重新渲染列表与统计]
@@ -54,6 +67,10 @@ flowchart TD
 ## 数据格式
 
 导出文件包含 `schemaVersion`、`exportedAt` 和 `records`。每条记录包含 `id`、`title`、`category`、`minutes`、`date`、`notes`、`createdAt` 和 `updatedAt`。导入会检查基本字段类型，但这不是复杂的数据迁移系统。
+
+## 测试状态
+
+已完成源码拆分和仓库文件回读检查；尚未在真实浏览器中执行完整自动化或手动回归。请按 `tests/manual-test-plan.md` 验证，并记录结果。
 
 ## 已知限制与安全
 
