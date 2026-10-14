@@ -208,7 +208,7 @@
         const today = new Date();
         const todayNumber = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000);
         const dayNumbers = [...new Set(records.map((item) => {
-          if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date)) return null;
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return null;
           const timestamp = Date.parse(item.date + "T00:00:00Z");
           return Number.isFinite(timestamp) ? Math.floor(timestamp / 86400000) : null;
         }).filter((value) => value !== null))].sort((a, b) => a - b);
@@ -253,7 +253,9 @@
         const select = $("#topic-export-select");
         const previous = select.value;
         select.replaceChildren(new Option("请选择专题", ""));
-        for (const category of uniqueCategories()) select.add(new Option(category, category));
+        const categories = uniqueCategories();
+        if (records.some((item) => !item.category.trim())) categories.push("未分类");
+        for (const category of categories) select.add(new Option(category, category));
         if ([...select.options].some((option) => option.value === previous)) select.value = previous;
       }
 
@@ -287,7 +289,7 @@
           lines.push("---", "");
         }
         lines.push("## 后续思考", "", "- 这个专题最重要的三个结论是什么？", "- 哪些问题还没有解决？", "- 下一步要验证或实践什么？", "");
-        const blob = new Blob(["\\uFEFF", lines.join("\\n")], { type: "text/markdown;charset=utf-8" });
+        const blob = new Blob(["\uFEFF", lines.join("\n")], { type: "text/markdown;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const anchor = document.createElement("a");
         anchor.href = url;
