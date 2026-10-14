@@ -44,6 +44,24 @@
     .stat { padding:16px 12px; box-shadow:none; }
     .stat strong { display:block; font-size:1.7rem; letter-spacing:-.04em; }
     .stat span { color:var(--muted); font-size:.86rem; }
+    .goals-panel, .topic-export-panel { margin:0 0 18px; }
+    .goals-grid { display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, 1fr); gap:18px; }
+    .goal-card { min-width:0; padding:16px; border:1px solid var(--border); border-radius:14px; background:var(--surface); }
+    .goal-card h3 { margin:0 0 5px; font-size:1rem; }
+    .goal-form label, .topic-export-controls label { display:block; margin-bottom:6px; color:var(--muted); font-size:.85rem; }
+    .goal-input-row { display:flex; align-items:center; gap:10px; }
+    .goal-input-row input { flex:1; min-width:0; }
+    .goal-progress-meta { display:flex; justify-content:space-between; gap:12px; margin-top:18px; font-size:.86rem; }
+    .goal-progress-meta span { color:var(--muted); font-variant-numeric:tabular-nums; }
+    .goal-progress-track { height:12px; margin-top:8px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
+    .goal-progress-bar { width:0; height:100%; border-radius:999px; background:var(--accent); transition:width .2s ease; }
+    .streak-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:20px 0 14px; }
+    .streak-stats div { display:flex; flex-direction:column; gap:4px; padding:15px; border-radius:12px; background:var(--surface-soft); }
+    .streak-stats strong { font-size:2rem; line-height:1.1; font-variant-numeric:tabular-nums; }
+    .streak-stats span { color:var(--muted); font-size:.82rem; }
+    .topic-export-controls { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px 12px; align-items:end; }
+    .topic-export-controls label { grid-column:1 / -1; margin-bottom:0; }
+    .topic-export-controls select { min-width:0; width:100%; }
     .workspace { display:grid; grid-template-columns:minmax(270px, .78fr) minmax(0, 1.5fr); gap:18px; align-items:start; padding-bottom:40px; }
     .analytics { margin: 0 0 18px; }
     .analytics-grid { display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, 1fr); gap:18px; }
@@ -89,7 +107,7 @@
     .footer { color:var(--muted); font-size:.82rem; padding:0 0 28px; }
     .hidden { display:none !important; }
     @media (max-width: 780px) {
-      .hero, .workspace, .analytics-grid { grid-template-columns:1fr; }
+      .hero, .workspace, .analytics-grid, .goals-grid { grid-template-columns:1fr; }
       .stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
       .panel { padding:16px; }
     }
@@ -100,7 +118,10 @@
       .stat { padding:12px 9px; }
       .stat strong { font-size:1.35rem; }
       .actions .btn { padding:8px 10px; }
-      .chart-card { padding:12px; }
+      .chart-card, .goal-card { padding:12px; }
+      .topic-export-controls { grid-template-columns:1fr; }
+      .topic-export-controls label { grid-column:auto; }
+      .topic-export-controls .btn { width:100%; }
       .weekly-chart { gap:4px; }
       .bar-value { font-size:.65rem; }
       .day-label { font-size:.68rem; }
