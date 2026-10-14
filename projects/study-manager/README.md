@@ -19,7 +19,8 @@ study-manager/
 ├── app.js                     # 状态、校验、渲染、存储和导入导出
 ├── README.md                  # 项目说明
 └── tests/
-    └── manual-test-plan.md    # 手动回归测试清单
+    ├── manual-test-plan.md    # 手动回归测试清单
+    └── check-project.mjs      # 无依赖静态检查
 ```
 
 ## 功能清单
@@ -86,7 +87,7 @@ flowchart TD
 
 ## 测试状态
 
-已完成源码拆分和仓库文件回读检查；尚未在真实浏览器中执行完整自动化或手动回归。请按 `tests/manual-test-plan.md` 验证，并记录结果。
+已添加 GitHub Actions 静态检查：使用 Node.js 检查 JavaScript 语法，并运行 `tests/check-project.mjs` 校验资源引用、关键界面元素和 CSS 基础结构。工作流会在相关文件推送或 PR 时触发；本次尚未取得工作流运行结果，也未在真实浏览器中执行手动回归。请按 `tests/manual-test-plan.md` 验证，并记录结果。
 
 ## 已知限制与安全
 
