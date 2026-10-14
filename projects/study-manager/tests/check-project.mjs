@@ -43,4 +43,8 @@ assert.equal((css.match(/\{/g) || []).length, (css.match(/\}/g) || []).length,
   "CSS opening and closing brace counts must match");
 assert.match(css, /@media\s*\(max-width:\s*780px\)/, "Responsive layout rules should exist");
 
-assert.match(js, /window\\.confirm\\("确定替换全部现有记录吗/, "Replacing records must require explicit confirmation");\nassert.match(js, /pendingImport = valid/, "Import should wait for explicit confirmation before saving");\n\nconsole.log("Study Manager static checks passed.");
+assert.ok(js.includes('window.confirm("确定替换全部现有记录吗？建议先下载 JSON 备份。")'),
+  "Replacing records must require explicit confirmation");
+assert.ok(js.includes("pendingImport = valid"), "Import should wait for explicit confirmation before saving");
+
+console.log("Study Manager static checks passed.");
