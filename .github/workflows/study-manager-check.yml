@@ -1,0 +1,26 @@
+name: Study Manager checks
+
+on:
+  push:
+    paths:
+      - "projects/study-manager/**"
+      - ".github/workflows/study-manager-check.yml"
+  pull_request:
+    paths:
+      - "projects/study-manager/**"
+      - ".github/workflows/study-manager-check.yml"
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: node --check projects/study-manager/app.js
+      - name: Check static project structure
+        run: node projects/study-manager/tests/check-project.mjs
