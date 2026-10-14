@@ -45,6 +45,25 @@
       </div>
     </section>
 
+    <section class="panel analytics" aria-labelledby="analytics-title">
+      <div class="section-head">
+        <h2 id="analytics-title">学习分析</h2>
+        <span class="tag">最近 7 天 · 分类分布</span>
+      </div>
+      <div class="analytics-grid">
+        <section class="chart-card" aria-labelledby="weekly-title">
+          <h3 id="weekly-title">每日学习时长</h3>
+          <p class="chart-hint">按学习日期统计；没有记录的日期显示为 0。</p>
+          <div id="weekly-chart" class="weekly-chart" role="img" aria-label="最近七天每日学习分钟数图表"></div>
+        </section>
+        <section class="chart-card" aria-labelledby="category-chart-title">
+          <h3 id="category-chart-title">专题学习分布</h3>
+          <p class="chart-hint">按分类累计学习分钟排序，展示前五个分类。</p>
+          <div id="category-chart" class="category-chart" role="img" aria-label="各专题累计学习分钟数图表"></div>
+        </section>
+      </div>
+    </section>
+
     <main class="workspace">
       <section class="panel" id="editor-panel" aria-labelledby="editor-title">
         <div class="section-head">
