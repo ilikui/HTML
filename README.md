@@ -27,6 +27,9 @@
 - [CSS 专题：CSS 变量与主题系统](CSS/09-CSS变量与主题系统.md)
 - [CSS 专题：综合实战——响应式个人主页](CSS/10-CSS综合实战：响应式个人主页.md)
 - [JavaScript：交互与编程基础](#4-javascript交互与编程基础)
+- [JavaScript 专题：变量、数据类型与类型转换](JavaScript/01-变量、数据类型与类型转换.md)
+- [JavaScript 专题：运算符与流程控制](JavaScript/02-运算符与流程控制.md)
+- [JavaScript 专题：函数、作用域与闭包](JavaScript/03-函数、作用域与闭包.md)
 - [Git 与版本控制](#5-git-与版本控制)
 - [浏览器、调试与 Web 工程](#6-浏览器调试与-web-工程)
 - [综合项目与验收](#7-综合项目与验收)
@@ -349,6 +352,12 @@ flowchart TD
     G --> H[Fetch 与数据处理]
     H --> I[测试与工程实践]
 ```
+
+### JavaScript 专题深挖
+
+- [01｜变量、数据类型与类型转换](JavaScript/01-变量、数据类型与类型转换.md)
+- [02｜运算符与流程控制](JavaScript/02-运算符与流程控制.md)
+- [03｜函数、作用域与闭包](JavaScript/03-函数、作用域与闭包.md)
 
 ### 4.2 从事件开始
 
