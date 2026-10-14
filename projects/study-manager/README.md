@@ -7,7 +7,7 @@
 1. 确保 `index.html`、`styles.css` 和 `app.js` 保持在同一目录。
 2. 使用任意静态 HTTP 服务器提供此目录（推荐），例如在本目录执行 `python -m http.server 8000`，再访问 `http://localhost:8000`。
 3. 新建几条学习记录，刷新页面确认已保存的数据能够恢复。
-4. 使用“导出 JSON”备份；需要恢复时点击“导入 JSON`。
+4. 使用“导出 JSON”备份；需要恢复时点击“导入 JSON”。
 5. 执行 `tests/manual-test-plan.md` 中的手动回归清单。
 
 ## 文件结构
