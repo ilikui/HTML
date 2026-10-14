@@ -24,28 +24,31 @@
           <button class="btn" id="export-btn" type="button">导出 JSON</button>
           <button class="btn" id="import-btn" type="button">导入 JSON</button>
           <input class="hidden" id="import-file" type="file" accept="application/json,.json">
-          <section class="import-preview panel hidden" id="import-preview" aria-labelledby="import-preview-title">
-            <div class="import-preview-heading">
-              <div>
-                <h2 id="import-preview-title">导入预览</h2>
-                <p class="muted" id="import-preview-summary">正在分析备份文件…</p>
-              </div>
-              <button class="btn" id="cancel-import-btn" type="button">取消</button>
-            </div>
-            <div class="import-preview-stats" aria-live="polite">
-              <div><strong id="import-new-count">0</strong><span>新增记录</span></div>
-              <div><strong id="import-update-count">0</strong><span>同 ID 覆盖</span></div>
-              <div><strong id="import-invalid-count">0</strong><span>无效记录</span></div>
-            </div>
-            <p class="status" id="import-preview-warning"></p>
-            <div class="button-row">
-              <button class="btn primary" id="confirm-merge-import" type="button">合并导入</button>
-              <button class="btn danger" id="confirm-replace-import" type="button">替换全部记录</button>
-            </div>
-          </section>
+
         </div>
       </div>
     </header>
+
+    <section class="import-preview panel hidden" id="import-preview" aria-labelledby="import-preview-title">
+      <div class="import-preview-heading">
+        <div>
+          <h2 id="import-preview-title">导入预览</h2>
+          <p class="muted" id="import-preview-summary">正在分析备份文件…</p>
+        </div>
+        <button class="btn" id="cancel-import-btn" type="button">取消</button>
+      </div>
+      <div class="import-preview-stats" aria-live="polite">
+        <div><strong id="import-new-count">0</strong><span>新增记录</span></div>
+        <div><strong id="import-update-count">0</strong><span>同 ID 覆盖</span></div>
+        <div><strong id="import-invalid-count">0</strong><span>无效记录</span></div>
+      </div>
+      <p class="status" id="import-preview-warning"></p>
+      <div class="button-row">
+        <button class="btn primary" id="confirm-merge-import" type="button">合并导入</button>
+        <button class="btn danger" id="confirm-replace-import" type="button">替换全部记录</button>
+      </div>
+    </section>
+
 
     <section class="hero" aria-label="学习概览">
       <div class="panel hero-intro">
