@@ -211,7 +211,7 @@
           if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return null;
           const timestamp = Date.parse(item.date + "T00:00:00Z");
           return Number.isFinite(timestamp) ? Math.floor(timestamp / 86400000) : null;
-        }).filter((value) => value !== null))].sort((a, b) => a - b);
+        }).filter((value) => value !== null && value <= todayNumber))].sort((a, b) => a - b);
         let longest = 0;
         let run = 0;
         let previous = null;
