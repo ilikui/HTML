@@ -29,11 +29,30 @@
       }
 
       function validRecord(item) {
-        return item && typeof item.id === "string" &&
-          typeof item.title === "string" && item.title.trim().length > 0 &&
-          typeof item.category === "string" && typeof item.notes === "string" &&
-          typeof item.date === "string" && Number.isInteger(item.minutes) &&
-          item.minutes >= 0 && item.minutes <= 1440;
+        if (!item || typeof item.id !== "string" || !item.id.trim() ||
+            typeof item.title !== "string" || !item.title.trim() ||
+            typeof item.category !== "string" || typeof item.notes !== "string" ||
+            typeof item.date !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date) ||
+            !Number.isInteger(item.minutes) || item.minutes < 0 || item.minutes > 1440) {
+          return false;
+        }
+        const parsedDate = new Date(item.date + "T00:00:00Z");
+        return Number.isFinite(parsedDate.getTime()) && parsedDate.toISOString().slice(0, 10) === item.date;
+      }
+
+      function normalizeRecord(item) {
+        const now = new Date().toISOString();
+        return {
+          id: item.id.trim(),
+          title: item.title.trim(),
+          category: item.category.trim(),
+          minutes: item.minutes,
+          date: item.date,
+          notes: item.notes,
+          createdAt: typeof item.createdAt === "string" && item.createdAt ? item.createdAt : now,
+          updatedAt: typeof item.updatedAt === "string" && item.updatedAt ? item.updatedAt :
+            (typeof item.createdAt === "string" && item.createdAt ? item.createdAt : now)
+        };
       }
 
       function loadRecords() {
@@ -42,7 +61,7 @@
           if (raw === null) return [];
           const parsed = JSON.parse(raw);
           if (!Array.isArray(parsed)) throw new Error("数据格式不是数组");
-          return parsed.filter(validRecord);
+          return parsed.filter(validRecord).map(normalizeRecord)
         } catch (error) {
           storageAvailable = false;
           console.error("读取本地记录失败：", error);
@@ -266,7 +285,7 @@
           return;
         }
         const topicRecords = records.filter((item) => (item.category.trim() || "未分类") === category)
-          .sort((a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt));
+          .sort((a, b) => a.date.localeCompare(b.date) || (a.createdAt || "").localeCompare(b.createdAt || "") || a.id.localeCompare(b.id));
         if (!topicRecords.length) {
           setStatus($("#topic-export-status"), "这个专题目前没有可导出的记录。", "error");
           return;
@@ -532,20 +551,21 @@
           if (!Array.isArray(imported) || !imported.every(validRecord)) {
             throw new Error("文件不是受支持的学习记录 JSON，或存在无效记录。");
           }
+          const normalizedImported = imported.map(normalizeRecord);
           const mode = window.confirm("点击“确定”合并导入（同 ID 覆盖）；点击“取消”将替换当前全部记录。");
           let next;
           if (mode) {
             const map = new Map(records.map((item) => [item.id, item]));
-            imported.forEach((item) => map.set(item.id, item));
+            normalizedImported.forEach((item) => map.set(item.id, item));
             next = [...map.values()];
           } else {
-            next = imported;
+            next = normalizedImported;
           }
           if (!persist(next)) return;
           records = next;
           resetForm();
           render();
-          setStatus(listStatus, "导入完成，共 " + imported.length + " 条记录。", "success");
+          setStatus(listStatus, "导入完成，共 " + normalizedImported.length + " 条记录。", "success");
         } catch (error) {
           console.error(error);
           setStatus(listStatus, "导入失败：" + (error instanceof Error ? error.message : "文件读取错误"), "error");
