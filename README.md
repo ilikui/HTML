@@ -33,6 +33,9 @@
 - [JavaScript 专题：数组与对象](JavaScript/04-数组与对象.md)
 - [JavaScript 专题：字符串、数字与日期处理](JavaScript/05-字符串、数字与日期处理.md)
 - [JavaScript 专题：DOM 查询与页面更新](JavaScript/06-DOM查询与页面更新.md)
+- [JavaScript 专题：DOM 事件机制](JavaScript/07-DOM事件机制.md)
+- [JavaScript 专题：表单与数据校验](JavaScript/08-表单与数据校验.md)
+- [JavaScript 专题：浏览器存储与数据持久化](JavaScript/09-浏览器存储与数据持久化.md)
 - [Git 与版本控制](#5-git-与版本控制)
 - [浏览器、调试与 Web 工程](#6-浏览器调试与-web-工程)
 - [综合项目与验收](#7-综合项目与验收)
@@ -364,6 +367,9 @@ flowchart TD
 - [04｜数组与对象](JavaScript/04-数组与对象.md)
 - [05｜字符串、数字与日期处理](JavaScript/05-字符串、数字与日期处理.md)
 - [06｜DOM 查询与页面更新](JavaScript/06-DOM查询与页面更新.md)
+- [07｜DOM 事件机制](JavaScript/07-DOM事件机制.md)
+- [08｜表单与数据校验](JavaScript/08-表单与数据校验.md)
+- [09｜浏览器存储与数据持久化](JavaScript/09-浏览器存储与数据持久化.md)
 
 ### 4.2 从事件开始
 
