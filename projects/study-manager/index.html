@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="一个使用原生 HTML、CSS 和 JavaScript 构建的个人学习记录与知识专题管理器。">
+  <title>学习台 · 个人知识管理</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb; --surface: #fff; --surface-soft: #eef2f8;
+      --text: #172033; --muted: #667085; --border: #dfe5ee;
+      --accent: #4f46e5; --accent-soft: #e8eaff; --danger: #b42318;
+      --success: #067647; --shadow: 0 14px 38px rgba(25, 35, 60, .07);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #101522; --surface: #181f2e; --surface-soft: #222b3c;
+      --text: #edf1fa; --muted: #aab4c6; --border: #303b4f;
+      --accent: #a5a4ff; --accent-soft: #303052; --danger: #ff9a91;
+      --success: #6ce0ad; --shadow: 0 14px 38px rgba(0, 0, 0, .2);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.55; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 3px;
+    }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 26px 0 20px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { display:grid; place-items:center; width:44px; height:44px; border-radius:14px; color:white; background:#4f46e5; font-weight:800; }
+    h1, h2, h3, p { margin-top:0; }
+    h1 { font-size:clamp(1.6rem, 3vw, 2.2rem); letter-spacing:-.04em; margin-bottom:2px; }
+    .subtitle, .muted { color:var(--muted); }
+    .subtitle { margin:0; }
+    .actions, .toolbar, .filters, .button-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .btn { border:1px solid var(--border); border-radius:10px; padding:9px 13px; background:var(--surface); color:var(--text); }
+    .btn.primary { background:var(--accent); color:white; border-color:transparent; }
+    [data-theme="dark"] .btn.primary { color:#101522; }
+    .btn.danger { color:var(--danger); }
+    .btn:disabled { opacity:.55; cursor:not-allowed; }
+    .hero { display:grid; grid-template-columns:1.5fr 1fr; gap:16px; margin:12px 0 20px; }
+    .panel, .stat { background:var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); }
+    .panel { padding:20px; }
+    .hero-intro { background:linear-gradient(130deg, var(--surface), var(--accent-soft)); }
+    .hero-intro h2 { margin-bottom:8px; font-size:1.35rem; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .stat { padding:16px 12px; box-shadow:none; }
+    .stat strong { display:block; font-size:1.7rem; letter-spacing:-.04em; }
+    .stat span { color:var(--muted); font-size:.86rem; }
+    .workspace { display:grid; grid-template-columns:minmax(270px, .78fr) minmax(0, 1.5fr); gap:18px; align-items:start; padding-bottom:40px; }
+    .section-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
+    .section-head h2 { margin:0; font-size:1.15rem; }
+    label { display:block; font-size:.9rem; font-weight:650; margin-bottom:6px; }
+    .field { margin-bottom:14px; }
+    input, select, textarea { width:100%; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text); padding:10px 11px; }
+    textarea { min-height:110px; resize:vertical; }
+    .form-hint { color:var(--muted); font-size:.82rem; margin-top:5px; }
+    .filters { margin-bottom:14px; }
+    .filters > * { flex:1 1 150px; }
+    .list { display:grid; gap:10px; }
+    .entry { border:1px solid var(--border); background:var(--surface); border-radius:14px; padding:15px; }
+    .entry-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .entry h3 { margin:0 0 5px; font-size:1.03rem; overflow-wrap:anywhere; }
+    .entry p { margin:8px 0 0; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:.82rem; }
+    .tag { display:inline-flex; align-items:center; padding:3px 8px; border-radius:999px; background:var(--surface-soft); color:var(--muted); font-size:.78rem; }
+    .entry-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .entry-actions .btn { padding:6px 9px; font-size:.85rem; }
+    .empty { padding:36px 16px; text-align:center; color:var(--muted); border:1px dashed var(--border); border-radius:14px; }
+    .status { min-height:1.5em; margin:10px 0 0; color:var(--muted); font-size:.9rem; }
+    .status.error { color:var(--danger); } .status.success { color:var(--success); }
+    .footer { color:var(--muted); font-size:.82rem; padding:0 0 28px; }
+    .hidden { display:none !important; }
+    @media (max-width: 780px) {
+      .hero, .workspace { grid-template-columns:1fr; }
+      .stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .panel { padding:16px; }
+    }
+    @media (max-width: 420px) {
+      .shell { width:calc(100% - 20px); }
+      .topbar { align-items:flex-start; }
+      .logo { width:38px; height:38px; }
+      .stat { padding:12px 9px; }
+      .stat strong { font-size:1.35rem; }
+      .actions .btn { padding:8px 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">学</div>
+          <div>
+            <h1>学习台</h1>
+            <p class="subtitle">把学过的内容，变成可持续积累的知识。</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="theme-toggle" type="button" aria-label="切换深色主题">切换主题</button>
+          <button class="btn" id="export-btn" type="button">导出 JSON</button>
+          <button class="btn" id="import-btn" type="button">导入 JSON</button>
+          <input class="hidden" id="import-file" type="file" accept="application/json,.json">
+        </div>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="学习概览">
+      <div class="panel hero-intro">
+        <span class="tag">PERSONAL KNOWLEDGE DESK</span>
+        <h2>今天，沉淀一个值得复用的想法。</h2>
+        <p class="muted">记录学习主题、归档知识专题、回看自己的积累。数据默认保存在当前浏览器中。</p>
+        <div class="button-row">
+          <button class="btn primary" id="focus-add" type="button">＋ 新建记录</button>
+          <button class="btn" id="clear-search" type="button">清除筛选</button>
+        </div>
+      </div>
+      <div class="stats" aria-label="记录统计">
+        <div class="stat"><strong id="total-count">0</strong><span>全部记录</span></div>
+        <div class="stat"><strong id="topic-count">0</strong><span>专题分类</span></div>
+        <div class="stat"><strong id="minutes-count">0</strong><span>累计分钟</span></div>
+      </div>
+    </section>
+
+    <main class="workspace">
+      <section class="panel" id="editor-panel" aria-labelledby="editor-title">
+        <div class="section-head">
+          <h2 id="editor-title">新建学习记录</h2>
+          <span class="tag" id="editor-mode">新记录</span>
+        </div>
+        <form id="record-form">
+          <div class="field">
+            <label for="title">学习主题 <span aria-hidden="true">*</span></label>
+            <input id="title" name="title" required maxlength="100" placeholder="例如：JavaScript 事件委托">
+          </div>
+          <div class="field">
+            <label for="category">专题分类</label>
+            <input id="category" name="category" maxlength="40" list="category-options" placeholder="例如：JavaScript">
+            <datalist id="category-options">
+              <option value="HTML"><option value="CSS"><option value="JavaScript">
+              <option value="前端工程"><option value="知识管理"><option value="读书笔记">
+            </datalist>
+          </div>
+          <div class="field">
+            <label for="minutes">学习时长（分钟）</label>
+            <input id="minutes" name="minutes" type="number" min="0" max="1440" step="1" value="30" required>
+          </div>
+          <div class="field">
+            <label for="date">学习日期</label>
+            <input id="date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="notes">核心收获 / 复盘</label>
+            <textarea id="notes" name="notes" maxlength="3000" placeholder="记录关键结论、例子、疑问或下一步行动……"></textarea>
+            <p class="form-hint">最多 3000 字。建议记录自己的理解，而不只是复制资料。</p>
+          </div>
+          <div class="button-row">
+            <button class="btn primary" id="save-btn" type="submit">保存记录</button>
+            <button class="btn" id="cancel-edit" type="button">重置</button>
+          </div>
+          <p class="status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="records-title">
+        <div class="section-head">
+          <h2 id="records-title">我的知识记录</h2>
+          <span class="tag" id="visible-count">0 条</span>
+        </div>
+        <div class="filters">
+          <input id="search" type="search" aria-label="搜索记录" placeholder="搜索主题、分类或复盘内容">
+          <select id="category-filter" aria-label="按专题分类筛选">
+            <option value="">全部分类</option>
+          </select>
+          <select id="sort" aria-label="排序方式">
+            <option value="newest">日期：最新优先</option>
+            <option value="oldest">日期：最早优先</option>
+            <option value="minutes">时长：从高到低</option>
+            <option value="title">主题：A 到 Z</option>
+          </select>
+        </div>
+        <div class="list" id="record-list" aria-live="polite"></div>
+        <p class="status" id="list-status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>原生 HTML · CSS · JavaScript · LocalStorage。请定期导出备份；浏览器本地数据不是云端同步，也不应存放密码或敏感信息。</p>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_KEY = "ilikui-study-manager-v1";
+      const THEME_KEY = "ilikui-study-manager-theme";
+      const $ = (selector) => document.querySelector(selector);
+      const form = $("#record-form");
+      const titleInput = $("#title");
+      const categoryInput = $("#category");
+      const minutesInput = $("#minutes");
+      const dateInput = $("#date");
+      const notesInput = $("#notes");
+      const list = $("#record-list");
+      const formStatus = $("#form-status");
+      const listStatus = $("#list-status");
+      const categoryFilter = $("#category-filter");
+      const searchInput = $("#search");
+      const sortInput = $("#sort");
+      let editingId = null;
+      let storageAvailable = true;
+      let records = loadRecords();
+
+      function todayLocal() {
+        const now = new Date();
+        const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+        return local.toISOString().slice(0, 10);
+      }
+
+      function validRecord(item) {
+        return item && typeof item.id === "string" &&
+          typeof item.title === "string" && item.title.trim().length > 0 &&
+          typeof item.category === "string" && typeof item.notes === "string" &&
+          typeof item.date === "string" && Number.isInteger(item.minutes) &&
+          item.minutes >= 0 && item.minutes <= 1440;
+      }
+
+      function loadRecords() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw === null) return [];
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) throw new Error("数据格式不是数组");
+          return parsed.filter(validRecord);
+        } catch (error) {
+          storageAvailable = false;
+          console.error("读取本地记录失败：", error);
+          return [];
+        }
+      }
+
+      function persist(nextRecords) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(nextRecords));
+          storageAvailable = true;
+          return true;
+        } catch (error) {
+          storageAvailable = false;
+          console.error("保存本地记录失败：", error);
+          setStatus(formStatus, "保存失败：浏览器可能禁用了本地存储或存储空间不足。请先导出已有数据。", "error");
+          return false;
+        }
+      }
+
+      function setStatus(element, message, kind = "") {
+        element.textContent = message;
+        element.className = "status" + (kind ? " " + kind : "");
+      }
+
+      function makeId() {
+        if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") {
+          return globalThis.crypto.randomUUID();
+        }
+        return "record-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+      }
+
+      function uniqueCategories() {
+        return [...new Set(records.map((item) => item.category.trim()).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, "zh-CN"));
+      }
+
+      function renderCategoryFilter() {
+        const previous = categoryFilter.value;
+        categoryFilter.replaceChildren(new Option("全部分类", ""));
+        for (const category of uniqueCategories()) {
+          categoryFilter.add(new Option(category, category));
+        }
+        if ([...categoryFilter.options].some((option) => option.value === previous)) {
+          categoryFilter.value = previous;
+        }
+      }
+
+      function getVisibleRecords() {
+        const query = searchInput.value.trim().toLocaleLowerCase();
+        const category = categoryFilter.value;
+        const visible = records.filter((item) => {
+          const matchesCategory = !category || item.category === category;
+          const haystack = [item.title, item.category, item.notes].join(" ").toLocaleLowerCase();
+          return matchesCategory && (!query || haystack.includes(query));
+        });
+        const sort = sortInput.value;
+        visible.sort((a, b) => {
+          if (sort === "oldest") return a.date.localeCompare(b.date);
+          if (sort === "minutes") return b.minutes - a.minutes || b.date.localeCompare(a.date);
+          if (sort === "title") return a.title.localeCompare(b.title, "zh-CN");
+          return b.date.localeCompare(a.date) || b.updatedAt.localeCompare(a.updatedAt);
+        });
+        return visible;
+      }
+
+      function render() {
+        renderCategoryFilter();
+        const visible = getVisibleRecords();
+        list.replaceChildren();
+        $("#visible-count").textContent = visible.length + " 条";
+        $("#total-count").textContent = records.length.toLocaleString("zh-CN");
+        $("#topic-count").textContent = uniqueCategories().length.toLocaleString("zh-CN");
+        $("#minutes-count").textContent = records.reduce((sum, item) => sum + item.minutes, 0).toLocaleString("zh-CN");
+
+        if (visible.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = records.length ? "没有找到符合条件的记录，试试调整搜索词或分类。" : "这里还没有记录。创建第一条学习记录，让知识开始积累。";
+          list.append(empty);
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        for (const record of visible) {
+          const article = document.createElement("article");
+          article.className = "entry";
+          const top = document.createElement("div");
+          top.className = "entry-top";
+          const headingWrap = document.createElement("div");
+          const heading = document.createElement("h3");
+          heading.textContent = record.title;
+          const meta = document.createElement("div");
+          meta.className = "meta";
+          const date = document.createElement("span");
+          date.textContent = record.date || "未设置日期";
+          const minutes = document.createElement("span");
+          minutes.textContent = record.minutes + " 分钟";
+          meta.append(date, minutes);
+          headingWrap.append(heading, meta);
+          top.append(headingWrap);
+          if (record.category) {
+            const tag = document.createElement("span");
+            tag.className = "tag";
+            tag.textContent = record.category;
+            top.append(tag);
+          }
+          article.append(top);
+          if (record.notes) {
+            const note = document.createElement("p");
+            note.textContent = record.notes;
+            article.append(note);
+          }
+          const actions = document.createElement("div");
+          actions.className = "entry-actions";
+          const edit = document.createElement("button");
+          edit.type = "button"; edit.className = "btn"; edit.textContent = "编辑";
+          edit.dataset.action = "edit"; edit.dataset.id = record.id;
+          const remove = document.createElement("button");
+          remove.type = "button"; remove.className = "btn danger"; remove.textContent = "删除";
+          remove.dataset.action = "delete"; remove.dataset.id = record.id;
+          actions.append(edit, remove);
+          article.append(actions);
+          fragment.append(article);
+        }
+        list.append(fragment);
+      }
+
+      function resetForm() {
+        editingId = null;
+        form.reset();
+        dateInput.value = todayLocal();
+        minutesInput.value = "30";
+        $("#editor-title").textContent = "新建学习记录";
+        $("#editor-mode").textContent = "新记录";
+        $("#save-btn").textContent = "保存记录";
+        $("#cancel-edit").textContent = "重置";
+        setStatus(formStatus, "");
+      }
+
+      function startEdit(id) {
+        const record = records.find((item) => item.id === id);
+        if (!record) return;
+        editingId = id;
+        titleInput.value = record.title;
+        categoryInput.value = record.category;
+        minutesInput.value = String(record.minutes);
+        dateInput.value = record.date;
+        notesInput.value = record.notes;
+        $("#editor-title").textContent = "编辑学习记录";
+        $("#editor-mode").textContent = "编辑中";
+        $("#save-btn").textContent = "保存修改";
+        $("#cancel-edit").textContent = "取消编辑";
+        setStatus(formStatus, "正在编辑记录。");
+        titleInput.focus();
+        $("#editor-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = titleInput.value.trim();
+        const category = categoryInput.value.trim();
+        const minutes = Number(minutesInput.value);
+        const date = dateInput.value;
+        const notes = notesInput.value.trim();
+
+        if (!title) {
+          setStatus(formStatus, "请填写学习主题。", "error");
+          titleInput.focus();
+          return;
+        }
+        if (!Number.isInteger(minutes) || minutes < 0 || minutes > 1440) {
+          setStatus(formStatus, "学习时长必须是 0 到 1440 之间的整数。", "error");
+          minutesInput.focus();
+          return;
+        }
+        if (!date || Number.isNaN(Date.parse(date + "T00:00:00"))) {
+          setStatus(formStatus, "请选择有效的学习日期。", "error");
+          dateInput.focus();
+          return;
+        }
+
+        const now = new Date().toISOString();
+        const previous = records;
+        const existing = editingId ? records.find((item) => item.id === editingId) : null;
+        const record = {
+          id: editingId || makeId(), title, category, minutes, date, notes,
+          createdAt: existing?.createdAt || now, updatedAt: now
+        };
+        const next = existing
+          ? records.map((item) => item.id === editingId ? record : item)
+          : [record, ...records];
+
+        if (!persist(next)) return;
+        records = next;
+        render();
+        resetForm();
+        setStatus(formStatus, existing ? "修改已保存。" : "新记录已保存。", "success");
+        setStatus(listStatus, "当前数据已保存到此浏览器。", "success");
+      });
+
+      list.addEventListener("click", (event) => {
+        if (!(event.target instanceof Element)) return;
+        const button = event.target.closest("button[data-action][data-id]");
+        if (!button || !list.contains(button)) return;
+        const id = button.dataset.id;
+        if (button.dataset.action === "edit") {
+          startEdit(id);
+          return;
+        }
+        if (button.dataset.action === "delete") {
+          const record = records.find((item) => item.id === id);
+          if (!record || !window.confirm("确定删除这条学习记录吗？")) return;
+          const next = records.filter((item) => item.id !== id);
+          if (!persist(next)) return;
+          records = next;
+          if (editingId === id) resetForm();
+          render();
+          setStatus(listStatus, "记录已删除。", "success");
+        }
+      });
+
+      [searchInput, categoryFilter, sortInput].forEach((control) => {
+        control.addEventListener(control === searchInput ? "input" : "change", render);
+      });
+
+      $("#focus-add").addEventListener("click", () => {
+        resetForm();
+        titleInput.focus();
+        $("#editor-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      $("#cancel-edit").addEventListener("click", resetForm);
+      $("#clear-search").addEventListener("click", () => {
+        searchInput.value = "";
+        categoryFilter.value = "";
+        sortInput.value = "newest";
+        render();
+        setStatus(listStatus, "筛选条件已清除。");
+      });
+
+      $("#theme-toggle").addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = nextTheme;
+        try { localStorage.setItem(THEME_KEY, nextTheme); } catch (error) {
+          console.warn("主题设置无法保存", error);
+        }
+      });
+
+      $("#export-btn").addEventListener("click", () => {
+        const payload = {
+          schemaVersion: 1,
+          exportedAt: new Date().toISOString(),
+          records
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "study-records-" + todayLocal() + ".json";
+        document.body.append(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+        setStatus(listStatus, "已生成 JSON 导出文件。", "success");
+      });
+
+      $("#import-btn").addEventListener("click", () => $("#import-file").click());
+      $("#import-file").addEventListener("change", async (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        try {
+          const parsed = JSON.parse(await file.text());
+          const imported = Array.isArray(parsed) ? parsed : parsed.records;
+          if (!Array.isArray(imported) || !imported.every(validRecord)) {
+            throw new Error("文件不是受支持的学习记录 JSON，或存在无效记录。");
+          }
+          const mode = window.confirm("点击“确定”合并导入（同 ID 覆盖）；点击“取消”将替换当前全部记录。");
+          let next;
+          if (mode) {
+            const map = new Map(records.map((item) => [item.id, item]));
+            imported.forEach((item) => map.set(item.id, item));
+            next = [...map.values()];
+          } else {
+            next = imported;
+          }
+          if (!persist(next)) return;
+          records = next;
+          resetForm();
+          render();
+          setStatus(listStatus, "导入完成，共 " + imported.length + " 条记录。", "success");
+        } catch (error) {
+          console.error(error);
+          setStatus(listStatus, "导入失败：" + (error instanceof Error ? error.message : "文件读取错误"), "error");
+        } finally {
+          event.target.value = "";
+        }
+      });
+
+      try {
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        const preferred = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = savedTheme || preferred;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+
+      dateInput.value = todayLocal();
+      render();
+      if (!storageAvailable) {
+        setStatus(listStatus, "本地数据读取失败或存储不可用。当前展示的记录可能不完整，请检查浏览器设置并从备份导入。", "error");
+      }
+    })();
+  </script>
+</body>
+</html>
