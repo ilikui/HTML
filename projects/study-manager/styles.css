@@ -129,3 +129,54 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
     }
+
+
+/* Import preview: explicit review before changing stored records. */
+.import-preview {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1.25rem;
+}
+.import-preview-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.import-preview-heading h2 {
+  margin: 0 0 .35rem;
+}
+.import-preview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1rem 0;
+}
+.import-preview-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .9rem;
+  border: 1px solid var(--border, #d8dee8);
+  border-radius: .75rem;
+}
+.import-preview-stats strong {
+  font-size: 1.35rem;
+}
+.import-preview-stats span {
+  color: var(--muted, #667085);
+  font-size: .875rem;
+}
+#confirm-replace-import {
+  border-color: #c2413b;
+}
+@media (max-width: 520px) {
+  .import-preview-stats {
+    grid-template-columns: 1fr;
+  }
+  .import-preview-heading {
+    align-items: flex-start;
+  }
+}
