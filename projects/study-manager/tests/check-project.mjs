@@ -33,7 +33,7 @@ for (const id of [
 
 for (const feature of [
   "function renderAnalytics()", "function renderGoalAndStreak()",
-  "function renderTopicExportOptions()", "function exportTopicMarkdown()",
+  "function renderTopicExportOptions()", "function exportTopicMarkdown()", "function normalizeRecord()", "parsed.filter(validRecord).map(normalizeRecord)",
   'localStorage.setItem(GOAL_KEY'
 ]) {
   assert.ok(js.includes(feature), `Expected application feature: ${feature}`);
