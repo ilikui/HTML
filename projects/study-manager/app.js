@@ -32,7 +32,7 @@
         if (!item || typeof item.id !== "string" || !item.id.trim() ||
             typeof item.title !== "string" || !item.title.trim() ||
             typeof item.category !== "string" || typeof item.notes !== "string" ||
-            typeof item.date !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date) ||
+            typeof item.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(item.date) ||
             !Number.isInteger(item.minutes) || item.minutes < 0 || item.minutes > 1440) {
           return false;
         }
