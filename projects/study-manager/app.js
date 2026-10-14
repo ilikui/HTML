@@ -107,6 +107,92 @@
         return visible;
       }
 
+      function localDateKey(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return year + "-" + month + "-" + day;
+      }
+
+      function renderAnalytics() {
+        const weeklyChart = $("#weekly-chart");
+        const categoryChart = $("#category-chart");
+        if (!weeklyChart || !categoryChart) return;
+
+        const today = new Date();
+        const days = [];
+        for (let offset = 6; offset >= 0; offset -= 1) {
+          const day = new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset);
+          const key = localDateKey(day);
+          const minutes = records.filter((item) => item.date === key)
+            .reduce((sum, item) => sum + item.minutes, 0);
+          days.push({ key, label: new Intl.DateTimeFormat("zh-CN", { month: "numeric", day: "numeric" }).format(day), minutes });
+        }
+
+        const weeklyMax = Math.max(30, ...days.map((day) => day.minutes));
+        const weeklyFragment = document.createDocumentFragment();
+        for (const day of days) {
+          const item = document.createElement("div");
+          item.className = "day-column";
+          const value = document.createElement("span");
+          value.className = "bar-value";
+          value.textContent = day.minutes + " 分";
+          const track = document.createElement("div");
+          track.className = "bar-track";
+          const bar = document.createElement("div");
+          bar.className = "day-bar";
+          bar.style.height = Math.max(day.minutes > 0 ? 4 : 0, day.minutes / weeklyMax * 100) + "%";
+          track.append(bar);
+          const label = document.createElement("span");
+          label.className = "day-label";
+          label.textContent = day.label;
+          item.setAttribute("aria-label", day.key + "：学习 " + day.minutes + " 分钟");
+          item.append(value, track, label);
+          weeklyFragment.append(item);
+        }
+        weeklyChart.replaceChildren(weeklyFragment);
+
+        const totals = new Map();
+        for (const record of records) {
+          const category = record.category.trim() || "未分类";
+          totals.set(category, (totals.get(category) || 0) + record.minutes);
+        }
+        const ranked = [...totals.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN")).slice(0, 5);
+        categoryChart.replaceChildren();
+        if (ranked.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "chart-empty";
+          empty.textContent = "添加学习记录后，这里会显示专题分布。";
+          categoryChart.append(empty);
+          return;
+        }
+        const categoryMax = Math.max(1, ...ranked.map((item) => item[1]));
+        const categoryFragment = document.createDocumentFragment();
+        for (const [name, minutes] of ranked) {
+          const row = document.createElement("div");
+          row.className = "category-row";
+          const labelLine = document.createElement("div");
+          labelLine.className = "category-label-line";
+          const label = document.createElement("span");
+          label.className = "category-name";
+          label.textContent = name;
+          const value = document.createElement("span");
+          value.className = "category-value";
+          value.textContent = minutes + " 分";
+          const track = document.createElement("div");
+          track.className = "category-track";
+          const bar = document.createElement("div");
+          bar.className = "category-bar";
+          bar.style.width = minutes / categoryMax * 100 + "%";
+          track.append(bar);
+          labelLine.append(label, value);
+          row.append(labelLine, track);
+          row.setAttribute("aria-label", name + "：累计学习 " + minutes + " 分钟");
+          categoryFragment.append(row);
+        }
+        categoryChart.append(categoryFragment);
+      }
+
       function render() {
         renderCategoryFilter();
         const visible = getVisibleRecords();
@@ -115,6 +201,7 @@
         $("#total-count").textContent = records.length.toLocaleString("zh-CN");
         $("#topic-count").textContent = uniqueCategories().length.toLocaleString("zh-CN");
         $("#minutes-count").textContent = records.reduce((sum, item) => sum + item.minutes, 0).toLocaleString("zh-CN");
+        renderAnalytics();
 
         if (visible.length === 0) {
           const empty = document.createElement("div");
