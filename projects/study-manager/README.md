@@ -108,3 +108,8 @@ flowchart TD
 node --check projects/study-manager/app.js
 node projects/study-manager/tests/check-project.mjs
 ```
+
+
+### 导入预览与安全确认
+
+选择 JSON 备份后，学习台先分析文件并展示新增、同 ID 覆盖及无效/重复记录数量。用户必须明确选择“合并导入”或“替换全部记录”；替换操作还有二次确认。取消预览不会写入数据。文件内重复 ID 与无效记录会跳过，建议操作前先导出备份。
