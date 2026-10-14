@@ -479,10 +479,12 @@ git push
 
 ### 已落地项目：学习台｜个人学习记录与知识专题管理器
 
-- [打开项目源码](projects/study-manager/index.html)
-- [项目说明、数据流与验收清单](projects/study-manager/README.md)
+- [打开项目页面](projects/study-manager/index.html)
+- [样式文件](projects/study-manager/styles.css) · [JavaScript 逻辑](projects/study-manager/app.js)
+- [项目说明、数据流与文件结构](projects/study-manager/README.md)
+- [手动回归测试清单](projects/study-manager/tests/manual-test-plan.md)
 
-项目支持学习记录的新增、编辑、删除、搜索、分类筛选、排序、统计、本地保存、JSON 导入导出和主题切换。数据保存在当前浏览器，不提供云端同步；请定期备份。
+项目采用 HTML、CSS、JavaScript 分文件结构，支持学习记录的新增、编辑、删除、搜索、分类筛选、排序、统计、本地保存、JSON 导入导出和主题切换。数据保存在当前浏览器，不提供云端同步；请定期备份。浏览器测试尚待按回归清单执行。
 
 
 建议按顺序完成，不需要一开始就引入大型框架。
