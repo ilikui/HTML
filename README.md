@@ -36,6 +36,9 @@
 - [JavaScript 专题：DOM 事件机制](JavaScript/07-DOM事件机制.md)
 - [JavaScript 专题：表单与数据校验](JavaScript/08-表单与数据校验.md)
 - [JavaScript 专题：浏览器存储与数据持久化](JavaScript/09-浏览器存储与数据持久化.md)
+- [JavaScript 专题：异步编程与事件循环](JavaScript/10-异步编程与事件循环.md)
+- [JavaScript 专题：Promise 与 async/await](JavaScript/11-Promise与async-await.md)
+- [JavaScript 专题：Fetch 与 HTTP 请求](JavaScript/12-Fetch与HTTP请求.md)
 - [Git 与版本控制](#5-git-与版本控制)
 - [浏览器、调试与 Web 工程](#6-浏览器调试与-web-工程)
 - [综合项目与验收](#7-综合项目与验收)
@@ -370,6 +373,9 @@ flowchart TD
 - [07｜DOM 事件机制](JavaScript/07-DOM事件机制.md)
 - [08｜表单与数据校验](JavaScript/08-表单与数据校验.md)
 - [09｜浏览器存储与数据持久化](JavaScript/09-浏览器存储与数据持久化.md)
+- [10｜异步编程与事件循环](JavaScript/10-异步编程与事件循环.md)
+- [11｜Promise 与 async/await](JavaScript/11-Promise与async-await.md)
+- [12｜Fetch 与 HTTP 请求](JavaScript/12-Fetch与HTTP请求.md)
 
 ### 4.2 从事件开始
 
