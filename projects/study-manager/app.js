@@ -541,40 +541,97 @@
         setStatus(listStatus, "已生成 JSON 导出文件。", "success");
       });
 
+      let pendingImport = null;
+
+      function cancelImportPreview() {
+        pendingImport = null;
+        $("#import-preview").classList.add("hidden");
+        $("#import-file").value = "";
+        setStatus($("#list-status"), "已取消导入，现有记录未更改。");
+      }
+
+      function showImportPreview(imported) {
+        const existingIds = new Set(records.map((item) => item.id));
+        const incomingIds = new Set();
+        let invalidCount = 0;
+        let duplicateCount = 0;
+        const valid = [];
+        for (const item of imported) {
+          if (!validRecord(item)) {
+            invalidCount += 1;
+            continue;
+          }
+          if (incomingIds.has(item.id)) {
+            duplicateCount += 1;
+            continue;
+          }
+          incomingIds.add(item.id);
+          valid.push(normalizeRecord(item));
+        }
+        const updateCount = valid.filter((item) => existingIds.has(item.id)).length;
+        const newCount = valid.length - updateCount;
+        pendingImport = valid;
+        $("#import-preview-summary").textContent =
+          "文件共 " + imported.length + " 条记录；请确认导入方式。无效记录及文件内重复 ID 会跳过。";
+        $("#import-new-count").textContent = String(newCount);
+        $("#import-update-count").textContent = String(updateCount);
+        $("#import-invalid-count").textContent = String(invalidCount + duplicateCount);
+        $("#import-preview-warning").textContent =
+          "合并会保留现有记录，并按相同 ID 覆盖；替换会清空当前记录后写入有效记录。建议先导出 JSON 备份。";
+        $("#import-preview").classList.remove("hidden");
+        $("#confirm-merge-import").disabled = false;
+        $("#confirm-replace-import").disabled = false;
+        $("#confirm-replace-import").textContent = "替换全部记录";
+        setStatus($("#list-status"), "备份文件已分析，请检查预览后选择导入方式。");
+      }
+
+      function commitImport(mode) {
+        if (!pendingImport) {
+          setStatus($("#list-status"), "没有可导入的数据，请重新选择备份文件。", "error");
+          return;
+        }
+        const imported = pendingImport;
+        if (mode === "replace" && !window.confirm("确定替换全部现有记录吗？建议先下载 JSON 备份。")) return;
+        let next;
+        if (mode === "merge") {
+          const map = new Map(records.map((item) => [item.id, item]));
+          imported.forEach((item) => map.set(item.id, item));
+          next = [...map.values()];
+        } else {
+          next = imported;
+        }
+        if (!persist(next)) return;
+        records = next;
+        pendingImport = null;
+        $("#import-preview").classList.add("hidden");
+        $("#import-file").value = "";
+        resetForm();
+        render();
+        setStatus(listStatus, (mode === "merge" ? "合并" : "替换") + "导入完成，有效记录 " + imported.length + " 条。", "success");
+      }
+
       $("#import-btn").addEventListener("click", () => $("#import-file").click());
+      $("#cancel-import-btn").addEventListener("click", cancelImportPreview);
+      $("#confirm-merge-import").addEventListener("click", () => commitImport("merge"));
+      $("#confirm-replace-import").addEventListener("click", () => commitImport("replace"));
       $("#import-file").addEventListener("change", async (event) => {
         const file = event.target.files?.[0];
         if (!file) return;
         try {
           const parsed = JSON.parse(await file.text());
-          const imported = Array.isArray(parsed) ? parsed : parsed.records;
-          if (!Array.isArray(imported) || !imported.every(validRecord)) {
-            throw new Error("文件不是受支持的学习记录 JSON，或存在无效记录。");
+          const imported = Array.isArray(parsed) ? parsed : parsed?.records;
+          if (!Array.isArray(imported)) {
+            throw new Error("文件中没有学习记录数组。");
           }
-          const normalizedImported = imported.map(normalizeRecord);
-          const mode = window.confirm("点击“确定”合并导入（同 ID 覆盖）；点击“取消”将替换当前全部记录。");
-          let next;
-          if (mode) {
-            const map = new Map(records.map((item) => [item.id, item]));
-            normalizedImported.forEach((item) => map.set(item.id, item));
-            next = [...map.values()];
-          } else {
-            next = normalizedImported;
-          }
-          if (!persist(next)) return;
-          records = next;
-          resetForm();
-          render();
-          setStatus(listStatus, "导入完成，共 " + normalizedImported.length + " 条记录。", "success");
+          showImportPreview(imported);
         } catch (error) {
           console.error(error);
           setStatus(listStatus, "导入失败：" + (error instanceof Error ? error.message : "文件读取错误"), "error");
-        } finally {
-          event.target.value = "";
+          $("#import-file").value = "";
         }
       });
 
-      try {
+            try {
         const savedTheme = localStorage.getItem(THEME_KEY);
         const preferred = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = savedTheme || preferred;
